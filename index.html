@@ -1,1 +1,263 @@
-Welcome to Game Platform
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All Game Platform</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#0b1020;color:white;
+ font-family:Arial,sans-serif
+}
+header{
+ background:linear-gradient(120deg,#151f43,#34205c);
+ padding:25px 12px;text-align:center;
+ border-bottom:2px solid #e8b943
+}
+header h1{color:#ffd34e;margin:5px}
+header p{color:#ddd}
+nav{
+ display:flex;justify-content:center;gap:12px;
+ flex-wrap:wrap;padding:15px
+}
+nav a{
+ color:white;text-decoration:none;
+ background:#202b4d;padding:10px 16px;
+ border-radius:20px
+}
+.container{max-width:1100px;margin:auto;padding:15px}
+h2{color:#ffd34e}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+ gap:15px
+}
+.card{
+ background:#182343;border:1px solid #34466e;
+ border-radius:14px;padding:20px 10px;
+ text-align:center
+}
+.emoji{font-size:42px}
+.card h3{margin:12px 0}
+button{
+ background:#e9b83e;color:#171717;
+ border:0;padding:11px 20px;
+ border-radius:8px;font-weight:bold;
+ cursor:pointer
+}
+button:hover{background:#ffe078}
+.game-area{
+ margin-top:20px;background:#182343;
+ border-radius:14px;padding:20px;text-align:center;
+ min-height:130px
+}
+#result{color:#ffd34e;font-size:20px;margin:15px}
+footer{
+ margin-top:30px;padding:25px;text-align:center;
+ background:#151e38;color:#bbb
+}
+input{
+ padding:12px;width:130px;border-radius:7px;
+ border:0;margin:8px
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🎮 All Game Platform</h1>
+<p>এক জায়গায় মজার সব ফ্রি গেম</p>
+</header>
+
+<nav>
+<a href="#games">আমাদের গেম</a>
+<a href="#about">আমাদের সম্পর্কে</a>
+</nav>
+
+<div class="container" id="games">
+<h2>🔥 আমাদের গেমসমূহ</h2>
+<div class="grid" id="gameList"></div>
+
+<div class="game-area" id="gameArea">
+<h2>🎮 গেম খেলতে উপরের যেকোনো গেম নির্বাচন করুন</h2>
+<p>সব গেম বিনামূল্যের ডেমো সংস্করণ।</p>
+</div>
+
+<section id="about">
+<h2>আমাদের সম্পর্কে</h2>
+<p>All Game Platform-এ আপনাকে স্বাগতম।
+এখানে বিনামূল্যে বিভিন্ন মজার গেম খেলতে পারবেন।</p>
+</section>
+</div>
+
+<footer>
+<p>© 2026 All Game Platform</p>
+<p>Free Demo Games | No Real Money</p>
+</footer>
+
+<script>
+const games=[
+["✈️","Aviator","aviator"],
+["🚀","Crash Game","crash"],
+["🎰","Slots","slots"],
+["🎲","Dice Game","dice"],
+["🃏","Poker Demo","poker"],
+["🎯","Roulette","roulette"],
+["🐯","Dragon Tiger","dragon"],
+["♠️","Baccarat Demo","baccarat"],
+["🏏","Cricket Game","cricket"],
+["⚽","Football Game","football"],
+["🎡","Lucky Wheel","wheel"],
+["💣","Mines","mines"],
+["🐔","Chicken Road","chicken"],
+["🧠","Memory Game","memory"],
+["🔢","Number Guess","number"]
+];
+
+const list=document.getElementById("gameList");
+const area=document.getElementById("gameArea");
+
+games.forEach(g=>{
+ const div=document.createElement("div");
+ div.className="card";
+ div.innerHTML=`
+ <div class="emoji">${g[0]}</div>
+ <h3>${g[1]}</h3>
+ <button onclick="openGame('${g[2]}')">খেলুন</button>`;
+ list.appendChild(div);
+});
+
+function show(title,html){
+ area.innerHTML=`<h2>${title}</h2>${html}<div id="result"></div>`;
+}
+function result(t){
+ document.getElementById("result").textContent=t;
+}
+
+function openGame(name){
+ if(name==="number"){
+ show("🔢 Number Guess",`
+ <p>১ থেকে ১০-এর মধ্যে সংখ্যা অনুমান করো</p>
+ <input id="guess" type="number" min="1" max="10">
+ <button onclick="guessNumber()">চেষ্টা করো</button>`);
+ }
+ else if(name==="dice"){
+ show("🎲 Dice Game",`
+ <button onclick="rollDice()">পাশা নিক্ষেপ</button>`);
+ }
+ else if(name==="slots"){
+ show("🎰 Free Slots",`
+ <p>স্পিন করে মজার ফলাফল দেখো</p>
+ <button onclick="spinSlots()">SPIN</button>`);
+ }
+ else if(name==="roulette"){
+ show("🎯 Roulette Demo",`
+ <button onclick="roulette()">ঘোরাও</button>`);
+ }
+ else if(name==="aviator"){
+ show("✈️ Aviator Demo",`
+ <p>বিমানের ডেমো ফ্লাইট দেখো। এটি কোনো অর্থের খেলা নয়।</p>
+ <button onclick="aviator()">ফ্লাইট শুরু</button>`);
+ }
+ else if(name==="crash"){
+ show("🚀 Crash Demo",`
+ <button onclick="crash()">শুরু করো</button>`);
+ }
+ else if(name==="mines"){
+ show("💣 Mines Puzzle",`
+ <p>নিরাপদ একটি ঘর বেছে নাও</p>
+ <button onclick="mines()">ঘর খোলো</button>`);
+ }
+ else if(name==="memory"){
+ show("🧠 Memory Game",`
+ <p id="memoryText">এই সংখ্যাটি মনে রাখো: <b id="mem">582</b></p>
+ <button onclick="memory()">খেলা শুরু</button>`);
+ }
+ else if(name==="wheel"){
+ show("🎡 Lucky Wheel",`
+ <button onclick="wheel()">চাকা ঘোরাও</button>`);
+ }
+ else if(name==="poker"){
+ show("🃏 Poker Demo",`
+ <p>কার্ডের ডেমো</p>
+ <button onclick="cards()">কার্ড দেখো</button>`);
+ }
+ else if(name==="dragon" || name==="baccarat"){
+ show("🐯 Card Demo",`
+ <button onclick="cards()">কার্ড তুলো</button>`);
+ }
+ else if(name==="cricket"){
+ show("🏏 Cricket Game",`
+ <button onclick="cricket()">শট খেলো</button>`);
+ }
+ else if(name==="football"){
+ show("⚽ Football Game",`
+ <button onclick="football()">শট নাও</button>`);
+ }
+ else if(name==="chicken"){
+ show("🐔 Chicken Road Demo",`
+ <button onclick="chicken()">এগিয়ে যাও</button>`);
+ }
+}
+
+function guessNumber(){
+ let n=Number(document.getElementById("guess").value);
+ if(n<1 || n>10 || !n){
+ result("১ থেকে ১০-এর মধ্যে সংখ্যা দাও");
+ return;
+ }
+ let a=Math.floor(Math.random()*10)+1;
+ result(n===a?"🎉 সঠিক অনুমান!":"ভুল হয়েছে। সংখ্যা ছিল "+a);
+}
+function rollDice(){
+ let n=Math.floor(Math.random()*6)+1;
+ result("🎲 তোমার ফলাফল: "+n);
+}
+function spinSlots(){
+ let symbols=["🍒","🍋","🍇","💎","⭐","🍉"];
+ let a=Array.from({length:3},()=>symbols[Math.floor(Math.random()*6)]);
+ result(a.join(" | ")+(a.every(x=>x===a[0])?" 🎉 দারুণ!":""));
+}
+function roulette(){
+ let colors=["🔴 লাল","⚫ কালো","🟢 সবুজ"];
+ result("ফলাফল: "+colors[Math.floor(Math.random()*3)]);
+}
+function aviator(){
+ let n=(1+Math.random()*9).toFixed(2);
+ result("✈️ ডেমো বিমান "+n+"x উচ্চতায় পৌঁছেছে!");
+}
+function crash(){
+ let n=(1+Math.random()*8).toFixed(2);
+ result("🚀 ডেমো ক্র্যাশ ফলাফল: "+n+"x");
+}
+function mines(){
+ result(Math.random()>.3?"💎 নিরাপদ ঘর!":"💣 এখানে বোমা ছিল!");
+}
+function memory(){
+ let el=document.getElementById("mem");
+ let n=Math.floor(100+Math.random()*900);
+ el.textContent=n;
+ setTimeout(()=>{el.textContent="???";},2000);
+}
+function wheel(){
+ let a=["🎁 উপহার","⭐ তারকা","🎉 অভিনন্দন","🍀 সৌভাগ্য"];
+ result(a[Math.floor(Math.random()*a.length)]);
+}
+function cards(){
+ let a=["A","K","Q","J","10","9"];
+ result("তোমার কার্ড: "+a[Math.floor(Math.random()*a.length)]);
+}
+function cricket(){
+ let a=[0,1,2,3,4,6];
+ result("🏏 রান: "+a[Math.floor(Math.random()*a.length)]);
+}
+function football(){
+ result(Math.random()>.5?"⚽ গোল হয়েছে!":"গোল হয়নি!");
+}
+function chicken(){
+ result(Math.random()>.3?"🐔 নিরাপদে এগিয়ে গেছ!":"🐔 খেলা শেষ!");
+}
+</script>
+</body>
+  </html>
